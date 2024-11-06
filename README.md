@@ -1,2 +1,2 @@
 # capstone_data404
-## Automation tool to predict different grographical level end-of-month cost
+## Automation tool for predicting end-of-month costs at different geographical levels
