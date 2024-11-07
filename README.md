@@ -111,15 +111,6 @@ Ensure you have the following installed:
 - **Frontend**: HTML, CSS, JavaScript, Plotly
 - **Database**: Pandas DataFrame (for demonstration)
 - **Visualization**: Plotly
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-### Contributions
-Feel free to fork the repository, create a branch, and submit a pull request. Contributions are welcome! 😊
-
 ---
 
 For any issues or suggestions, please open an issue in the repository.
