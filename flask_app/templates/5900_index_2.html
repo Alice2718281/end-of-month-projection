@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group A - Data 404</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='5900style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- Load Plotly -->
+</head>
+<body>
+    <header>
+        <div class="logo-header">
+            <img src="{{ url_for('static', filename='images/logo-ryder.svg') }}" alt="Ryder Logo" class="logo">
+            <h1>Group A - Data 404</h1>
+        </div>
+    </header>
+    <main>
+        
+        <!-- Geographic Level Selection -->
+        <div class="form-control">
+            <label for="level-select">Please select Geographic Level:</label>
+            <select id="level-select">
+                <option value="">Choose a level</option>
+                <option value="national">National</option>
+                <option value="region">Region</option>
+                <option value="bu">BU</option>
+                <option value="location">Location</option>
+            </select>
+        </div>
+
+        <!-- Region Selection (initially hidden) -->
+        <div id="region-container" class="form-control hidden">
+            <label for="region-select">Select Region:</label>
+            <select id="region-select">
+                <option value="">Choose a region</option>
+                <option value="OPS-SOUTH REGION ">OPS-SOUTH REGION</option>
+                <option value="OPS-NORTH REGION ">OPS-NORTH REGION</option>
+                <option value="OPS-CENTRAL REGION ">OPS-CENTRAL REGION</option>
+                <option value="OPS-WEST REGION ">OPS-WEST REGION</option>
+            </select>
+        </div>
+        
+        <!-- BU Selection (initially hidden) -->
+        <div id="bu-container" class="form-control hidden">
+            <label for="bu-select">Select BU:</label>
+            <select id="bu-select">
+                <option value="">Choose a BU</option>
+                <option value="OPS - MID SOUTH BU ">OPS - MID SOUTH BU</option>
+                <option value="OPS - GREAT LAKES BU ">OPS - GREAT LAKES BU</option>
+                <option value="OPS - DMV BU ">OPS - DMV BU</option>
+                <option value="OPS - GREAT PLAINS BU ">OPS - GREAT PLAINS BU</option>
+                <option value="OPS - CAROLINAS BU ">OPS - CAROLINAS BU</option>
+                <option value="OPS - SOUTH TEXAS BU ">OPS - SOUTH TEXAS BU</option>
+                <option value="OPS - UPPER MIDWEST BU ">OPS - UPPER MIDWEST BU</option>
+                <option value="OPS - GULF COAST BU ">OPS - GULF COAST BU</option>
+                <option value="OPS - LONG ISLAND BU ">OPS - LONG ISLAND BU</option>
+                <option value="OPS - FLORIDA BU ">OPS - FLORIDA BU</option>
+                <option value="OPS - GEORGIA BU ">OPS - GEORGIA BU</option>
+                <option value="OPS - PENN NY BU ">OPS - PENN NY BU</option>
+                <option value="OPS - INDY GRAND RAPIDS BU ">OPS - INDY GRAND RAPIDS BU</option>
+                <option value="OPS - NORTHWEST BU ">OPS - NORTHWEST BU</option>
+                <option value="OPS - WESTERN NEW ENGLAND BU ">OPS - WESTERN NEW ENGLAND BU</option>
+                <option value="OPS - BLUEGRASS BU ">OPS - BLUEGRASS BU</option>
+                <option value="OPS - EASTERN NEW ENGLAND BU ">OPS - EASTERN NEW ENGLAND BU</option>
+                <option value="OPS - ILLINOIS BU ">OPS - ILLINOIS BU</option>
+                <option value="OPS - SOUTHERN PLAINS BU ">OPS - SOUTHERN PLAINS BU</option>
+                <option value="OPS - NJ PENN BU ">OPS - NJ PENN BU</option>
+                <option value="OPS - NORTHERN CALIFORNIA BU ">OPS - NORTHERN CALIFORNIA BU</option>
+                <option value="OPS - SOUTHERN CALIFORNIA BU ">OPS - SOUTHERN CALIFORNIA BU</option>
+                <option value="OPS - ROCKY MOUNTAIN BU ">OPS - ROCKY MOUNTAIN BU</option>
+                <option value="WEST REGION ADMIN ">WEST REGION ADMIN</option>
+                <option value="NORTH REGION ADMIN ">NORTH REGION ADMIN</option>
+                <option value="SOUTH REGION ADMIN ">SOUTH REGION ADMIN</option>
+                <option value="CLOSED - SOUTH REGION ">CLOSED - SOUTH REGION</option>
+            </select>
+        </div>
+
+        <!-- Location Selection (initially hidden) -->
+        <div id="location-container" class="form-control hidden">
+            <label for="location-select">Select Location:</label>
+            <select id="location-select">
+                <option value="">Choose a location</option>
+                <option value="TUPELO">TUPELO</option>
+                <option value="MANSFIELD">MANSFIELD</option>
+                <option value="LANDOVER MD">LANDOVER MD</option>
+                <option value="BRIDGETON MISSOURI">BRIDGETON MISSOURI</option>
+                <option value="SANFORD NC">SANFORD NC</option>
+                <option value="BEAUMONT TEXAS">BEAUMONT TEXAS</option>
+                <option value="DAVENPORT 76TH ST">DAVENPORT 76TH ST</option>
+                <option value="HAMMOND LOUISIANA">HAMMOND LOUISIANA</option>
+                <option value="NEWARK">NEWARK</option>
+                <option value="NATS OPA LOCKA CAPTI">NATS OPA LOCKA CAPTI</option>
+                <option value="WINCHESTER VA">WINCHESTER VA</option>
+                <option value="BUFORD">BUFORD</option>
+                <option value="TONAWANDA NY">TONAWANDA NY</option>
+                <option value="BATON ROUGE LA">BATON ROUGE LA</option>
+                <option value="RITE AID">RITE AID</option>
+                <option value="WESTINGHOUSE">WESTINGHOUSE</option>
+                <option value="BIRMINGHAM">BIRMINGHAM</option>
+                <option value="MERIDIAN MISSISSIPPI">MERIDIAN MISSISSIPPI</option>
+                <option value="BELTSVILLE">BELTSVILLE</option>
+                <option value="CONWAY ARK">CONWAY ARK</option>
+                <option value="LANEY WALKER">LANEY WALKER</option>
+                <option value="SALEM">SALEM</option>
+                <option value="FLETCHER NC">FLETCHER NC</option>
+                <option value="ALBANY NY">ALBANY NY</option>
+                <option value="KNOXVILLE MIDDLEBROO">KNOXVILLE MIDDLEBROO</option>
+                <option value="PRESQUE ISLE">PRESQUE ISLE</option>
+                <option value="FULTON IND ATL GA">FULTON IND ATL GA</option>
+                <option value="BENSENVILLE ILL">BENSENVILLE ILL</option>
+                <option value="LOUISVILLE SO">LOUISVILLE SO</option>
+                <option value="DORAVILLE">DORAVILLE</option>
+                <option value="ELIZABETH N J">ELIZABETH N J</option>
+                <option value="HOUSTON HEMPSTEAD HY">HOUSTON HEMPSTEAD HY</option>
+                <option value="SCHENECTADY">SCHENECTADY</option>
+                <option value="SHERMAN TEX">SHERMAN TEX</option>
+                <option value="WILMINGTON DELAWARE">WILMINGTON DELAWARE</option>
+                <option value="ROHNERT PARK">ROHNERT PARK</option>
+                <option value="YONKERS N Y">YONKERS N Y</option>
+                <option value="CONYERS GEORGIA">CONYERS GEORGIA</option>
+                <option value="BLUEGRASS PARK">BLUEGRASS PARK</option>
+                <option value="AKRON EAST">AKRON EAST</option>
+                <option value="CLOVER STORNETTA CA">CLOVER STORNETTA CA</option>
+                <option value="RTR MELROSE PARK">RTR MELROSE PARK</option>
+                <option value="APPLEWHITE S A">APPLEWHITE S A</option>
+                <option value="SPARKS NEVADA">SPARKS NEVADA</option>
+                <option value="40TH STREET">40TH STREET</option>
+                <option value="POMPANO BEACH">POMPANO BEACH</option>
+                <option value="MARIETTA GA">MARIETTA GA</option>
+                <option value="MONTPELIER CABOT C">MONTPELIER CABOT C</option>
+                <option value="CRANBERRY">CRANBERRY</option>
+                <option value="TEMPLE TEXAS">TEMPLE TEXAS</option>
+            </select>
+        </div>
+
+        <!-- Transaction Type Selection -->
+        <div class="form-control">
+            <label for="transaction-type-select">Please select Transaction Type:</label>
+            <select id="transaction-type-select">
+                <option value="">Choose a transaction type</option>
+                <!-- <option value="INTERDISTRICT BILLING">INTERDISTRICT BILLING</option>
+                <option value="WARRANTY CLAIMS">WARRANTY CLAIMS</option>
+                <option value="ELECTRONIC INVOICES">ELECTRONIC INVOICES</option>
+                <option value="RYDER FUEL">RYDER FUEL</option>
+                <option value="WALKER ACCOUNTS PAYABLE">WALKER ACCOUNTS PAYABLE</option>
+                <option value="FUEL JOURNALS">FUEL JOURNALS</option>
+                <option value="UNKNOWN">UNKNOWN</option>
+                <option value="WALKER ACCOUNT RECEIVABLE">WALKER ACCOUNT RECEIVABLE</option>
+                <option value="REPAIR ORDERS">REPAIR ORDERS</option>
+                <option value="JOURNAL VOUCHERS">JOURNAL VOUCHERS</option>
+                <option value="REVENUE">REVENUE</option>
+                <option value="CREDIT JOURNALS FROM FIS">CREDIT JOURNALS FROM FIS</option>
+                <option value="CAPITALIZATION WRITE OFFS">CAPITALIZATION WRITE OFFS</option>
+                <option value="DISTRICT JOURNAL VOUCHERS">DISTRICT JOURNAL VOUCHERS</option>
+                <option value="FLEET ANALYSIS">FLEET ANALYSIS</option>
+                <option value="VEHICLE ADMIN MISC ENTRY">VEHICLE ADMIN MISC ENTRY</option>
+                <option value="SALES JOURNALS">SALES JOURNALS</option> -->
+            </select>
+        </div>
+
+        <!-- Year Selection -->
+        <div class="form-control">
+            <label for="year-select">Please select Year:</label>
+            <select id="year-select">
+                <option value="">Please choose a year</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+        </div>
+        
+        <!-- Month Selection -->
+        <div class="form-control">
+            <label for="month-select">Please select Month:</label>
+            <select id="month-select">
+                <option value="">Please choose a month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+        </div>
+
+        <!-- Days Selection -->
+        <div class="form-control">
+            <label for="day-select">Please select Day:</label>
+            <select id="day-select">
+                <option value="">Please choose days to predict</option>
+                <!-- Days 01 to 31 options -->
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select>
+        </div>
+
+        <!-- Method Selection -->
+        <div class="form-control">
+            <label for="method-select">Please select Method:</label>
+            <select id="method-select">
+                <option value="">Please pick a method</option>
+                <option value="method1">Method 1 One Model for Every Month</option>
+                <option value="method2">Method 2 Each Month a Projection Model</option>
+            </select>
+        </div>
+
+        <!-- Model Selection for Method 1
+        <div id="method1-model-container" class="form-control hidden">
+            <label for="method1-model-select">Select Model:</label>
+            <select id="method1-model-select">
+                <option value="">Please pick a model</option>
+                <option value="Neural Network">Neural Network</option>
+                <option value="ARIMA">ARIMA</option>
+            </select>
+        </div>
+
+        Model Selection for Method 2 -->
+        <!-- <div id="method2-model-container" class="form-control hidden">
+            <label for="method2-model-select">Select Model:</label>
+            <select id="method2-model-select">
+                <option value="">Please pick a model</option>
+                <option value="Linear Regression">Linear Regression</option>
+                <option value="Multi-Layer Perceptron">Multi-Layer Perceptron</option>
+                <option value="Prophet">Prophet</option>
+            </select>
+        </div> -->
+
+        <button id="predict-btn">Predict</button>
+        <button id="eda-btn">EDA</button>
+
+        <!-- Result and Metrics Container -->
+        <div id="result-container">
+            <h2>Results</h2>
+            <div id="metrics">
+                <h3>Metrics</h3>
+                <p><strong>Actual Cost:</strong> <span id="actual-cost">N/A</span></p>
+                <p><strong>Predicted Cost:</strong> <span id="predicted-cost">N/A</span></p>
+                <p><strong>Error Percentage (MAPE):</strong> <span id="error-percentage">N/A</span></p>
+            </div>
+        </div>
+
+        <!-- Prediction Plot Section -->
+        <div id="prediction-plot-container">
+            <h3>Visualize Prediction</h3>
+            <div id="prediction-plot"></div>
+        </div>
+
+        <!-- EDA Plot Section -->
+        <div id="eda-container">
+            <h2>EDA Plot</h2>
+            <div id="eda-plot">
+                <!-- The plot from eda.py will be displayed here -->
+            </div>
+        </div>
+    </main>
+    
+    <script src="{{ url_for('static', filename='5900script.js') }}"></script>
+    <script>
+        // JavaScript to handle dynamic month and year options based on method selection
+        document.getElementById('method-select').addEventListener('change', function() {
+            const method = this.value;
+            const monthSelect = document.getElementById('month-select');
+            const yearSelect = document.getElementById('year-select');
+            const daySelect = document.getElementById('day-select');
+            
+            // Reset selections
+            monthSelect.value = "";
+            yearSelect.value = "";
+            daySelect.value = "full";
+            
+            // Enable or disable options based on selected method
+            Array.from(yearSelect.options).forEach(option => {
+                option.disabled = method === "method1" && option.value !== "2024";
+            });
+            
+            Array.from(monthSelect.options).forEach(option => {
+                const monthValue = option.value;
+                option.disabled = (method === "method1" && ["09", "10", "11", "12"].includes(monthValue));
+            });
+            
+            // Adjust day select based on method: full days for method 1, selectable days for method 2
+            Array.from(daySelect.options).forEach(option => {
+                option.disabled = method === "method1" && option.value !== "full";
+            });
+            // // Show/hide the correct model selection dropdowns
+            // const method1ModelContainer = document.getElementById('method1-model-container');
+            // const method2ModelContainer = document.getElementById('method2-model-container');
+
+            // method1ModelContainer.classList.add('hidden');
+            // method2ModelContainer.classList.add('hidden');
+
+            // if (method === 'method1') {
+            //     method1ModelContainer.classList.remove('hidden');
+            // } else if (method === 'method2') {
+            //     method2ModelContainer.classList.remove('hidden');
+            // }
+        });
+
+        // Populate Level Description options based on Geographic Level selection
+        document.getElementById('level-select').addEventListener('change', function() {
+            const level = this.value;
+
+            // Hide all containers initially
+            document.getElementById('region-container').classList.add('hidden');
+            document.getElementById('bu-container').classList.add('hidden');
+            document.getElementById('location-container').classList.add('hidden');
+
+            // Show the relevant container based on selected level
+            if (level === 'region') {
+                document.getElementById('region-container').classList.remove('hidden');
+            } else if (level === 'bu') {
+                document.getElementById('bu-container').classList.remove('hidden');
+            } else if (level === 'location') {
+                document.getElementById('location-container').classList.remove('hidden');
+            }
+        });
+
+        // Array of Transaction Types
+        const transactionTypes = ['INTERDISTRICT BILLING', 'WARRANTY CLAIMS', 'ELECTRONIC INVOICES',
+        'RYDER FUEL', 'WALKER ACCOUNTS PAYABLE', 'FUEL JOURNALS',
+        'UNKNOWN', 'WALKER ACCOUNT RECEIVABLE', 'REPAIR ORDERS',
+        'JOURNAL VOUCHERS', 'REVENUE', 'CREDIT JOURNALS FROM FIS',
+        'CAPITALIZATION WRITE OFFS', 'DISTRICT JOURNAL VOUCHERS',
+        'FLEET ANALYSIS', 'VEHICLE ADMIN MISC ENTRY', 'SALES JOURNALS'];
+
+        // Populate Transaction Type options
+        const transactionTypeSelect = document.getElementById('transaction-type-select');
+        transactionTypes.sort().forEach(type => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = type;
+            transactionTypeSelect.appendChild(option);});
+
+        // Function to fetch and render the Plotly plot
+        function fetchAndRenderEDAPlot() {
+            const level = document.getElementById('level-select').value;
+            let description = null;
+
+            if (level === 'region') {
+                description = document.getElementById('region-select').value;
+            } else if (level === 'bu') {
+                description = document.getElementById('bu-select').value;
+            } else if (level === 'location') {
+                description = document.getElementById('location-select').value;
+            }
+
+            const transactionType = document.getElementById('transaction-type-select').value;
+
+            if (level && description && transactionType) {
+                fetch("/get_eda_plot", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        level: level,
+                        description: description,
+                        transaction_type: transactionType
+                    })
+                })
+                .then(response => response.json())
+                .then(graphJSON => {
+                    const plotData = JSON.parse(graphJSON);
+                    Plotly.newPlot("eda-plot", plotData.data, plotData.layout);
+                })
+                .catch(error => console.error("Error fetching plot:", error));
+            }
+        }
+        document.getElementById('eda-btn').addEventListener('click', fetchAndRenderEDAPlot);
+
+        
+        document.getElementById('predict-btn').addEventListener('click', function() {
+            const method = document.getElementById('method-select').value;
+
+            // let selectedModel = null;
+            // if (method === 'method1') {
+            //     selectedModel = document.getElementById('method1-model-select').value;
+            // } else if (method === 'method2') {
+            //     selectedModel = document.getElementById('method2-model-select').value;
+            // }
+
+            // if (!selectedModel) {
+            //     alert('Please select a model for the chosen method.');
+            //     return;
+            // }
+
+            const month = document.getElementById('month-select').value;
+            const year = document.getElementById('year-select').value;
+            const level = document.getElementById('level-select').value;
+
+            let selectedValue = null;
+
+            if (level === 'region') {
+                selectedValue = document.getElementById('region-select').value;
+            } else if (level === 'bu') {
+                selectedValue = document.getElementById('bu-select').value.trim();
+            } else if (level === 'location') {
+                selectedValue = document.getElementById('location-select').value;
+            }
+
+            const days_to_predict = document.getElementById('day-select').value;
+            const transaction_type = document.getElementById('transaction-type-select').value;
+
+             // Debugging output
+            console.log({
+                method,
+                // selectedModel,
+                month,
+                year,
+                level,
+                region: level === 'region' ? selectedValue : null,
+                BU: level === 'bu' ? selectedValue : null,
+                location: level === 'location' ? selectedValue : null,
+                days_to_predict,
+                transaction_type
+            });
+
+            // Send data to the /predict endpoint
+            fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    method: method,
+                    // model: selectedModel,
+                    month: month,
+                    year: year,
+                    level: level,
+                    region: level === 'region' ? selectedValue : null,
+                    BU: level === 'bu' ? selectedValue : null,
+                    location: level === 'location' ? selectedValue : null,
+                    days_to_predict: days_to_predict,
+                    transaction_type: transaction_type
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    if (method === 'method1') {
+                        // Display images for Method 1
+                        document.getElementById('images-container').classList.remove('hidden');
+                        document.getElementById('image1').src = data.image_url_1;
+                        document.getElementById('image2').src = data.image_url_2;
+                        document.getElementById('image3').src = data.image_url_3;
+                        document.getElementById('image4').src = data.image_url_4;
+                        document.getElementById('imageNN').src = data.image_url_nn;
+                    } else if (method === 'method2') {
+                        // Display the results for Method 2
+                        document.getElementById('actual-cost').textContent = `$${data.actual_cost.toFixed(2)}`;
+                        document.getElementById('predicted-cost').textContent = `$${data.predicted_cost.toFixed(2)}`;
+                        document.getElementById('error-percentage').textContent = `${data.error_percentage.toFixed(2)}%`;
+
+                        // Render Plotly plot from JSON
+                        const plotData = JSON.parse(data.plot);
+                        Plotly.newPlot('prediction-plot', plotData.data, plotData.layout);
+                    }
+                }
+            })
+            .catch(error => console.error('Error fetching prediction:', error));
+});
+    </script>
+</body>
+</html>
